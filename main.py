@@ -14,8 +14,8 @@ proteins_81 = pd.read_csv('MZ81_sle_protein_peptide_superdex75.csv', header = 0,
 df_10 = pd.DataFrame(proteins_81)
 proteins_78 = pd.read_csv('MZ78_sle_protein_peptide_precipetation.csv', header = 0, names = ['protein', 'peptide'], sep = ';', usecols = [2, 3])
 df_20 = pd.DataFrame(proteins_78)
-#result_1 = pd.merge(df_10, df_20, how = 'inner', on = ['protein', 'pepide'])
-#print(result_2)
+result_1 = pd.merge(df_10, df_20, how = 'inner', on = ['protein', 'peptide'])
+#print(result_1)
 
 df11 = pd.read_csv('MZ78_sle_protein_peptide_precipetation_2.txt', sep=';')
 df21 = pd.read_csv('MZ81_sle_protein_peptide_superdex75_2.txt', sep=';')
@@ -28,22 +28,11 @@ long_pept1 = long_pept1.filter(['Sequence']).drop_duplicates()
 long_pept2 = pd.read_csv('Anton_DRB1_1501_round2_count.csv', sep = ',')
 long_pept2 = long_pept2.filter(['Sequence']).drop_duplicates()
 
+res1 = result_1['peptide'].str.replace('.', '')
 
-#for i in range(df11.size):
-    #long_pept1['Sequence'].str.contains(str(df11['Peptide'][i]), na = False)
-    #print(df11[i])
-
-#print((long_pept1['Sequence'].str.contains('MDSGDGVTHTVPIYEGYALPHAILRL', na = False)).to_string()) #нет этого пептида
-#print((long_pept2['Sequence'].str.contains('MDSGDGVTHTVPIYEGYALPHAILRL', na = False)).to_string()) #нет этого пептида
-
-#print((long_pept1['Sequence'].str.contains('MVGMGQKDSYVGDEAQSKRGILTL', na = False)).to_string()) #такого нет
-#print((long_pept2['Sequence'].str.contains('MVGMGQKDSYVGDEAQSKRGILTL', na = False)).to_string())#такого нет
-
-#print((long_pept1['Sequence'].str.contains('VMVGMGQKDSYVGDEAQSKRGILTL', na = False)).to_string()) #такого нет
-#print((long_pept2['Sequence'].str.contains('VMVGMGQKDSYVGDEAQSKRGILTL', na = False)).to_string())
-
-for i in df21.Peptide:
+for i in res1:
     sub = i
+    #print(i)
     for j in long_pept1.Sequence:
         seq = j
         if sub in seq:
@@ -51,7 +40,7 @@ for i in df21.Peptide:
 
 print('___')
 
-for i in df21.Peptide:
+for i in res1:
     sub = i
     for j in long_pept2.Sequence:
         seq = j
