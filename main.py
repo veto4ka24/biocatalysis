@@ -24,13 +24,38 @@ df21 = df21.filter(['Peptide']).drop_duplicates()
 
 long_pept1 = pd.read_csv('Anton_DRB1_1501_round1_count.csv', sep = ',')
 long_pept1 = long_pept1.filter(['Sequence']).drop_duplicates()
-print(long_pept1)
-
-for i in range(df11.size):
-    for j in range(long_pept1.size):
-        long_pept1[j].str.contains(str(df11[i]), na = False)
-        print()
+#print(long_pept1)
+long_pept2 = pd.read_csv('Anton_DRB1_1501_round2_count.csv', sep = ',')
+long_pept2 = long_pept2.filter(['Sequence']).drop_duplicates()
 
 
+#for i in range(df11.size):
+    #long_pept1['Sequence'].str.contains(str(df11['Peptide'][i]), na = False)
+    #print(df11[i])
 
+#print((long_pept1['Sequence'].str.contains('MDSGDGVTHTVPIYEGYALPHAILRL', na = False)).to_string()) #нет этого пептида
+#print((long_pept2['Sequence'].str.contains('MDSGDGVTHTVPIYEGYALPHAILRL', na = False)).to_string()) #нет этого пептида
 
+#print((long_pept1['Sequence'].str.contains('MVGMGQKDSYVGDEAQSKRGILTL', na = False)).to_string()) #такого нет
+#print((long_pept2['Sequence'].str.contains('MVGMGQKDSYVGDEAQSKRGILTL', na = False)).to_string())#такого нет
+
+#print((long_pept1['Sequence'].str.contains('VMVGMGQKDSYVGDEAQSKRGILTL', na = False)).to_string()) #такого нет
+#print((long_pept2['Sequence'].str.contains('VMVGMGQKDSYVGDEAQSKRGILTL', na = False)).to_string())
+
+for i in df21.Peptide:
+    sub = i
+    for j in long_pept1.Sequence:
+        seq = j
+        if sub in seq:
+            print(seq, sub, sep = ' ')
+
+print('___')
+
+for i in df21.Peptide:
+    sub = i
+    for j in long_pept2.Sequence:
+        seq = j
+        if sub in seq:
+            print(seq, sub, sep = ' ')
+
+#print(df11.Peptide)
