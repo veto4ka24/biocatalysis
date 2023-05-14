@@ -30,21 +30,5 @@ long_pept2 = long_pept2.filter(['Sequence']).drop_duplicates()
 
 res1 = result_1['peptide'].str.replace('.', '')
 
-for i in res1:
-    sub = i
-    #print(i)
-    for j in long_pept1.Sequence:
-        seq = j
-        if sub in seq:
-            print(seq, sub, sep = ' ')
-
-print('___')
-
-for i in res1:
-    sub = i
-    for j in long_pept2.Sequence:
-        seq = j
-        if sub in seq:
-            print(seq, sub, sep = ' ')
-
-#print(df11.Peptide)
+df10 = df1.filter(['Protein Accession']).drop_duplicates()
+print(df10.to_string())
