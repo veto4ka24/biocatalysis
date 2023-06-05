@@ -2,6 +2,8 @@ import pandas as pd
 
 df0 = pd.read_csv('intersect_uniprot_immpr_ms.csv', sep = ';')
 df1 = pd.read_csv('gene_atlas_merge_uniprot.csv', sep=';')
+df1_1 = pd.read_csv('MZ78_merge_antigenatlas.csv', sep = ';')
+df1_2 = pd.read_csv('MZ81_merge_antigenatlas.csv', sep = ';')
 df2 = pd.read_csv('task2_lab.csv', sep=' ')
 #df1 = df1.filter(['gene', 'protein'])
 df2 = df2.filter(['protein'])
@@ -52,9 +54,17 @@ res2_2 = res2_2.rename(columns = {'Protein Accession' : 'protein'})
 #res2_2.to_csv("UNIproteins_from_DRB1_2_only_from_MZ81.csv", index=False)
 
 df_phdis_1 = pd.read_csv('UNIproteins_from_DRB1_1.csv', sep = ';').filter(['protein'])
-df_phdis_2_mz78 = pd.read_csv('UNIproteins_from_DRB1_2_only_from_MZ78.csv', sep = ';').filter(['protein'])
+
+df_phdis_21_mz81 = pd.read_csv('UNIproteins_from_DRB1_1_only_from_MZ81.csv', sep = ';').filter(['protein'])
+df_phdis_22_mz81 = pd.read_csv('UNIproteins_from_DRB1_2_only_from_MZ81.csv', sep = ';').filter(['protein'])
+df_phdis_11_mz78 = pd.read_csv('UNIproteins_from_DRB1_1_only_from_MZ78.csv', sep = ';').filter(['protein'])
+df_phdis_12_mz78 = pd.read_csv('UNIproteins_from_DRB1_2_only_from_MZ78.csv', sep = ';').filter(['protein'])
+
 df_phdis_2 = pd.read_csv('UNIproteins_from_DRB1_2.csv', sep = ';').filter(['protein'])
 
 phdis_2_genes = df_phdis_2.merge(df1, how = 'inner', on = 'protein')
-phdis_1_genes = df_phdis_2_mz78.merge(df1, how = 'inner', on = 'protein')
-#print(phdis_1_genes)
+phdis_1_genes78 = df_phdis_11_mz78.merge(df1_1, how = 'inner', on = 'protein')
+phdis_2_genes78 = df_phdis_12_mz78.merge(df1_1, how = 'inner', on = 'protein')
+phdis_1_genes81 = df_phdis_21_mz81.merge(df1_2, how = 'inner', on = 'protein')
+phdis_2_genes81 = df_phdis_22_mz81.merge(df1_2, how = 'inner', on = 'protein')
+print(phdis_2_genes81)
