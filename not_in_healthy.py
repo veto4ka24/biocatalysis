@@ -11,4 +11,5 @@ df7 = pd.read_csv('genes_from_DRB1r2_&MZ78.csv', sep = ';').filter(['gene', 'uni
 res1 = df5.merge(df2, how = 'left', on = 'gene', indicator = True).query("_merge == 'left_only'")
 res2 = df5.merge(df3, how = 'left', on = 'gene', indicator = True).query("_merge == 'left_only'")
 res3 = df7.merge(df2, how = 'left', on = 'gene', indicator = True).query("_merge == 'left_only'")
-print(res3)
+res4 = df7.merge(df3, how = 'left', on = 'gene', indicator = True).query("_merge == 'left_only'")
+print(res4)
