@@ -52,9 +52,9 @@ res2_2 = res2_2.rename(columns = {'Protein Accession' : 'protein'})
 #res2_2.to_csv("UNIproteins_from_DRB1_2_only_from_MZ81.csv", index=False)
 
 df_phdis_1 = pd.read_csv('UNIproteins_from_DRB1_1.csv', sep = ';').filter(['protein'])
-df_phdis_2_mz81 = pd.read_csv('UNIproteins_from_DRB1_2_only_from_MZ81.csv', sep = ';').filter(['protein'])
+df_phdis_2_mz78 = pd.read_csv('UNIproteins_from_DRB1_2_only_from_MZ78.csv', sep = ';').filter(['protein'])
 df_phdis_2 = pd.read_csv('UNIproteins_from_DRB1_2.csv', sep = ';').filter(['protein'])
 
-phdis_2_genes = df_phdis_2.merge(df0, how = 'inner', on = 'protein')
-phdis_1_genes = df_phdis_2_mz81.merge(df0, how = 'inner', on = 'protein')
-print(phdis_1_genes)
+phdis_2_genes = df_phdis_2.merge(df1, how = 'inner', on = 'protein')
+phdis_1_genes = df_phdis_2_mz78.merge(df1, how = 'inner', on = 'protein')
+#print(phdis_1_genes)
