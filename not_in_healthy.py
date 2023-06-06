@@ -43,4 +43,9 @@ res11 = df_79_81.merge(df_79_78, how = 'inner', on = ['protein', 'gene'])
 res12 = df_76_81.merge(df_76_78, how = 'inner', on = ['protein', 'gene'])
 #ищем гены, которые есть в ГФ и ИП больных, но отсутствуют в ИП здоровых
 
-print(res12.merge(res11, how = 'inner', on = ['protein', 'gene']))
+print(res3)
+print(res4)
+print(res3.merge(res4, how = 'inner', on = 'gene'))
+print(res5)
+print(res6)
+print(res5.merge(res6, how = 'inner', on = 'gene'))
