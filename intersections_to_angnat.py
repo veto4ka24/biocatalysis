@@ -32,29 +32,37 @@ df10_2 = pd.read_csv('MZ81_in_DRB1_round2.csv', sep = ' ')
 res1 = df5_1.merge(df4, how = 'inner', on = 'Peptide', indicator = True)
 res1 = res1.filter(['Protein Accession'])
 res1 = res1.rename(columns = {'Protein Accession' : 'protein'})
+#пытаюсь найти белки юнипрот, соответствующие в ФД 2 раунде пересечению ИП и ГФ больных
 res2 = df5_1.merge(df8, how = 'inner', on = 'Peptide', indicator = True)
 res2 = res2.filter(['Protein Accession'])
 res2 = res2.rename(columns = {'Protein Accession' : 'protein'})
+#пытаюсь найти белки юнипрот, соответствующие в ФД 1 раунде пересечению ИП и ГФ больных
 #res2.to_csv("UNIproteins_from_DRB1_1.csv", index=False)
 
 res1_1 = df5_2.merge(df9_1, how = 'inner', on = 'Peptide', indicator = True)
 res1_1 = res1_1.filter(['Protein Accession'])
 res1_1 = res1_1.rename(columns = {'Protein Accession' : 'protein'})
+#ищем белки юнипрот, которые соответствуют пептидам ИП больных, экспрессирующие пептиды в ФД 1 раунде
 res1_2 = df5_2.merge(df9_2, how = 'inner', on = 'Peptide', indicator = True)
 res1_2 = res1_2.filter(['Protein Accession'])
 res1_2 = res1_2.rename(columns = {'Protein Accession' : 'protein'})
+#ищем белки юнипрот, которые соответствуют пептидам ИП больных, экспрессирующие пептиды в ФД 2 раунде
 #res1_2.to_csv("UNIproteins_from_DRB1_2_only_from_MZ78.csv", index=False)
 
 res2_1 = df5_2.merge(df10_1, how = 'inner', on = 'Peptide', indicator = True)
 res2_1 = res2_1.filter(['Protein Accession'])
 res2_1 = res2_1.rename(columns = {'Protein Accession' : 'protein'})
+#ищем белки юнипрот, которые соответствуют пептидам ГФ больных, экспрессирующие пептиды в ФД 1 раунде
 res2_2 = df5_2.merge(df10_2, how = 'inner', on = 'Peptide', indicator = True)
 res2_2 = res2_2.filter(['Protein Accession'])
 res2_2 = res2_2.rename(columns = {'Protein Accession' : 'protein'})
+#ищем белки юнипрот, которые соответствуют пептидам ГФ больных, экспрессирующие пептиды в ФД 2 раунде
 #res2_2.to_csv("UNIproteins_from_DRB1_2_only_from_MZ81.csv", index=False)
 
 df_phdis_1 = pd.read_csv('UNIproteins_from_DRB1_1.csv', sep = ';').filter(['protein'])
 
+#заносим в датафреймы результаты поиска белков, экспрессирующих нужные пептиды в ФД, которые были найдены
+#в предыдущей итерации (то есть содержатся в пробах на ИП и ГФ больных)
 df_phdis_21_mz81 = pd.read_csv('UNIproteins_from_DRB1_1_only_from_MZ81.csv', sep = ';').filter(['protein'])
 df_phdis_22_mz81 = pd.read_csv('UNIproteins_from_DRB1_2_only_from_MZ81.csv', sep = ';').filter(['protein'])
 df_phdis_11_mz78 = pd.read_csv('UNIproteins_from_DRB1_1_only_from_MZ78.csv', sep = ';').filter(['protein'])
@@ -63,6 +71,7 @@ df_phdis_12_mz78 = pd.read_csv('UNIproteins_from_DRB1_2_only_from_MZ78.csv', sep
 df_phdis_2 = pd.read_csv('UNIproteins_from_DRB1_2.csv', sep = ';').filter(['protein'])
 
 phdis_2_genes = df_phdis_2.merge(df1, how = 'inner', on = 'protein')
+#ищем гены, соответствующие найденным в предыдущей итерации белкам
 phdis_1_genes78 = df_phdis_11_mz78.merge(df1_1, how = 'inner', on = 'protein')
 phdis_2_genes78 = df_phdis_12_mz78.merge(df1_1, how = 'inner', on = 'protein')
 phdis_1_genes81 = df_phdis_21_mz81.merge(df1_2, how = 'inner', on = 'protein')
