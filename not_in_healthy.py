@@ -31,7 +31,7 @@ res8 = df9.merge(df3, how = 'left', on = 'gene', indicator = True).query("_merge
 #ищем гены, отсутствующие в ИП (res7) и ГФ (res8) здоровых, но присутствующие в ИП больных
 res9 = df4.merge(df2, how = 'left', on = 'gene', indicator = True).query("_merge == 'left_only'")
 res10 = df4.merge(df3, how = 'left', on = 'gene', indicator = True).query("_merge == 'left_only'")
-#ищем гены, отсутствующие в ИП (res7) и ГФ (res8) здоровых, но присутствующие в ГФ больных
+#ищем гены, отсутствующие в ИП (res9) и ГФ (res10) здоровых, но присутствующие в ГФ больных
 
 df_76_78 = pd.read_csv('not_in_MZ76_but_in_MZ78.csv', sep = ';')
 df_76_81 = pd.read_csv('not_in_MZ76_but_in_MZ81.csv', sep = ';')
@@ -39,5 +39,8 @@ df_79_78 = pd.read_csv('not_in_MZ79_but_in_MZ78.csv', sep = ';')
 df_79_81 = pd.read_csv('not_in_MZ79_but_in_MZ81.csv', sep = ';')
 
 res11 = df_79_81.merge(df_79_78, how = 'inner', on = ['protein', 'gene'])
+#ищем гены, которые есть в ГФ и ИП больных, но отсутствуют в ГФ здоровых
+res12 = df_76_81.merge(df_76_78, how = 'inner', on = ['protein', 'gene'])
+#ищем гены, которые есть в ГФ и ИП больных, но отсутствуют в ИП здоровых
 
-print(res11)
+print(res12.merge(res11, how = 'inner', on = ['protein', 'gene']))
