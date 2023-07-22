@@ -67,4 +67,38 @@ nothealthy_peps_81_1_no79 = res_81_1_except_79.merge(cores_81, how = 'inner', on
 nothealthy_peps_81_2_no79 = res_81_2_except_79.merge(cores_81, how = 'inner', on = 'Core')
 #nothealthy_peps_81_2_no79.to_csv('peps_gelfiltration&PD2_not_in_79.csv', index = False)
 
-#ищем супер-пептиды (которые есть в нескольких файлах)
+#ищем супер-пептиды (которые есть в нескольких файлах), но сперва найдем те, которые есть лишь в раундах ФД,
+# масс-спектрах больных и отсутствуют  МС здоровых
+nothealthy_peps78_r1 = nothealthy_peps_78_1_no76.merge(nothealthy_peps_78_1_no79, how = 'inner', on = ['Core', 'Peptide'])
+nothealthy_peps78_r1 = nothealthy_peps78_r1.filter(['Core', 'Peptide'])
+#nothealthy_peps78_r1.to_csv('nothealthy_peps&cores_from_78(precipetation)r1.csv', index = False)
+
+nothealthy_peps78_r2 = nothealthy_peps_78_2_no76.merge(nothealthy_peps_78_2_no79, how = 'inner', on = ['Core', 'Peptide'])
+nothealthy_peps78_r2 = nothealthy_peps78_r2.filter(['Core', 'Peptide'])
+#print(nothealthy_peps78_r2)
+#nothealthy_peps78_r2.to_csv('nothealthy_peps&cores_from_78(precipetation)r2.csv', index = False)
+
+#пептиды и коры, которые есть в обоих раундах и которых нет в МС здоровых
+nothealthy_peps78 = nothealthy_peps78_r1.merge(nothealthy_peps78_r2, how = 'inner', on = ['Core', 'Peptide'])
+print(nothealthy_peps78)
+nothealthy_peps78.to_csv('nothealthy_peps&cores_from_78(precipetation)_both_rounds.csv', index = False)
+
+nothealthy_peps81_r1 = nothealthy_peps_81_1_no76.merge(nothealthy_peps_81_1_no79, how = 'inner', on = ['Core', 'Peptide'])
+nothealthy_peps81_r1 = nothealthy_peps81_r1.filter(['Core', 'Peptide'])
+nothealthy_peps81_r1.to_csv('nothealthy_peps&cores_from_81(gel-filtration)r1.csv', index = False)
+
+nothealthy_peps81_r2 = nothealthy_peps_81_2_no76.merge(nothealthy_peps_81_2_no79, how = 'inner', on = ['Core', 'Peptide'])
+nothealthy_peps81_r2 = nothealthy_peps81_r2.filter(['Core', 'Peptide'])
+#print(nothealthy_peps78_r2)
+nothealthy_peps81_r2.to_csv('nothealthy_peps&cores_from_81(gel-filtration)r2.csv', index = False)
+
+#пептиды и коры, которые есть в обоих раундах и которых нет в МС здоровых
+nothealthy_peps81 = nothealthy_peps81_r1.merge(nothealthy_peps81_r2, how = 'inner', on = ['Core', 'Peptide'])
+#print(nothealthy_peps81)
+nothealthy_peps81.to_csv('nothealthy_peps&cores_from_81(gel-filtration)_both_rounds.csv', index = False)
+
+nothealthy_peps81_78_r1 = nothealthy_peps81_r1.merge(nothealthy_peps78_r1, how = 'inner', on = ['Core', 'Peptide'])
+print(nothealthy_peps81_78_r1)
+
+nothealthy_peps81_78_r2 = nothealthy_peps81_r2.merge(nothealthy_peps78_r2, how = 'inner', on = ['Core', 'Peptide'])
+print(nothealthy_peps81_78_r2)
