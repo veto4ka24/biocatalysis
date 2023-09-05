@@ -76,4 +76,6 @@ phdis_1_genes78 = df_phdis_11_mz78.merge(df1_1, how = 'inner', on = 'protein')
 phdis_2_genes78 = df_phdis_12_mz78.merge(df1_1, how = 'inner', on = 'protein')
 phdis_1_genes81 = df_phdis_21_mz81.merge(df1_2, how = 'inner', on = 'protein')
 phdis_2_genes81 = df_phdis_22_mz81.merge(df1_2, how = 'inner', on = 'protein')
-print(phdis_2_genes81)
+#print(phdis_2_genes81)
+
+
